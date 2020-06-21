@@ -43,12 +43,12 @@ int main(int argc, char **argv) {
         printf("Can't set uid as 0.\n");
         return 1;
     }
-    
+
     if (access("/Library/Frameworks/RevealServer.framework/RevealServer", F_OK) != 0) {
         printf("Framework RevealServer.framework doesn't exist in /Library/Frameworks!\n");
         return 2;
     }
-    
+
     NSMutableArray *args = [[[NSProcessInfo processInfo] arguments] mutableCopy];
     if ([args count] == 1) {
         usage();
@@ -86,34 +86,26 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    
+
     if (access("/Library/MobileSubstrate/DynamicLibraries/RevealServer.dylib", F_OK) != 0) {
         system("ln -s ../../Frameworks/RevealServer.framework/RevealServer /Library/MobileSubstrate/DynamicLibraries/RevealServer.dylib");
     }
-    if (access("/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist", F_OK) != 0) {
-        FILE *fp = fopen("/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist", "a+");
-        fprintf(fp, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        fprintf(fp, "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n");
-        fprintf(fp, "<plist version=\"1.0\">\n");
-        fprintf(fp, "<dict>\n");
-        fprintf(fp, "\t<key>Filter</key>\n");
-        fprintf(fp, "\t<dict>\n");
-        fprintf(fp, "\t</dict>\n");
-        fprintf(fp, "</dict>\n");
-        fprintf(fp, "</plist>\n");
-        fclose(fp);
-    }
-    
+
     NSString *const plist = @"/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist";
+
+    if (access("/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist", F_OK) != 0) {
+        [[NSDictionary dictionary] writeToFile:plist atomically:NO];
+    }
+
     modifyPlist(plist, ^(id plist) {
         plist[@"Filter"][@"Bundles"] = args;
     });
-    
+
     printf("Injected reveal into");
     for (NSString *bundle in args) {
         printf(" %s", [bundle UTF8String]);
     }
     printf(" successfully.\n");
-    
+
     return 0;
 }
