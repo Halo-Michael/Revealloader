@@ -88,13 +88,16 @@ int main(int argc, char **argv) {
     }
 
     if (access("/Library/MobileSubstrate/DynamicLibraries/RevealServer.dylib", F_OK) != 0) {
-        system("ln -s ../../Frameworks/RevealServer.framework/RevealServer /Library/MobileSubstrate/DynamicLibraries/RevealServer.dylib");
+        symlink("../../Frameworks/RevealServer.framework/RevealServer", "/Library/MobileSubstrate/DynamicLibraries/RevealServer.dylib");
     }
 
     NSString *const plist = @"/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist";
 
     if (access("/Library/MobileSubstrate/DynamicLibraries/RevealServer.plist", F_OK) != 0) {
         [[NSDictionary dictionary] writeToFile:plist atomically:NO];
+        modifyPlist(plist, ^(id plist) {
+            plist[@"Filter"] = [NSDictionary dictionary];
+        });
     }
 
     modifyPlist(plist, ^(id plist) {
