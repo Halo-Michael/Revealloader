@@ -1,0 +1,10 @@
+Package: com.michael.revealloader
+Version: 0.1.0
+Section: Tweaks
+Name: Reveal Loader
+Author: halo_michael <yc992147156@me.com>
+Sponsor: halo_michael <yc992147156@me.com>
+Maintainer: halo_michael <yc992147156@me.com>
+Depends: firmware (>= 9.0)
+Architecture: iphoneos-arm
+Description: Command-Line-Tool to load reveal into processes. Needs copy RevealServer.framework from Reveal to /Library/Frameworks first.
