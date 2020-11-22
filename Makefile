@@ -1,29 +1,17 @@
-TARGET = revealloader
-VERSION = 0.1.0
-CC = xcrun -sdk iphoneos clang -arch armv7 -arch arm64 -arch arm64e -miphoneos-version-min=9.0
-LDID = ldid
+export TARGET := iphone:clang:latest:7.0
+export ARCH := armv7 arm64 arm64e
+export DEBUG = no
+export FINALPACKAGE = yes
+INSTALL_TARGET_PROCESSES = UIKit
 
-.PHONY: all clean
+include $(THEOS)/makefiles/common.mk
 
-all: postinst revealloader
-	mkdir com.michael.revealloader_$(VERSION)_iphoneos-arm
-	mkdir com.michael.revealloader_$(VERSION)_iphoneos-arm/DEBIAN
-	cp control com.michael.revealloader_$(VERSION)_iphoneos-arm/DEBIAN
-	mv postinst com.michael.revealloader_$(VERSION)_iphoneos-arm/DEBIAN
-	mkdir com.michael.revealloader_$(VERSION)_iphoneos-arm/usr
-	mkdir com.michael.revealloader_$(VERSION)_iphoneos-arm/usr/bin
-	mv revealloader com.michael.revealloader_$(VERSION)_iphoneos-arm/usr/bin
-	dpkg -b com.michael.revealloader_$(VERSION)_iphoneos-arm
+TWEAK_NAME = RevealLoader
 
-postinst: clean
-	$(CC) postinst.c -o postinst
-	strip postinst
-	$(LDID) -Sentitlements.xml postinst
+RevealLoader_FILES = Tweak.xm
+RevealLoader_CFLAGS = -fobjc-arc
 
-revealloader: clean
-	$(CC) -fobjc-arc revealloader.m -o revealloader
-	strip revealloader
-	$(LDID) -Sentitlements.xml revealloader
+SUBPROJECTS += revealloaderprefs
 
-clean:
-	rm -rf com.michael.revealloader_* revealloader
+include $(THEOS_MAKE_PATH)/tweak.mk
+include $(THEOS_MAKE_PATH)/aggregate.mk
