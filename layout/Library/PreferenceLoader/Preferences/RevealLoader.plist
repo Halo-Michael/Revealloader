@@ -2,15 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>entry</key>
+	<dict>
+		<key>cell</key>
+		<string>PSLinkCell</string>
+		<key>label</key>
+		<string>RevealLoader</string>
+	</dict>
 	<key>items</key>
 	<array>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string>RevealLoader</string>
 			<key>footerText</key>
 			<string>Inject Reveal into selected application</string>
+			<key>label</key>
+			<string>RevealLoader</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -68,7 +75,5 @@
 			<string>Enabled Applications</string>
 		</dict>
 	</array>
-	<key>title</key>
-	<string>RevealLoader</string>
 </dict>
 </plist>

@@ -11,7 +11,4 @@ TWEAK_NAME = RevealLoader
 RevealLoader_FILES = Tweak.xm
 RevealLoader_CFLAGS = -fobjc-arc
 
-SUBPROJECTS += revealloaderprefs
-
 include $(THEOS_MAKE_PATH)/tweak.mk
-include $(THEOS_MAKE_PATH)/aggregate.mk
