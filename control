@@ -1,8 +1,8 @@
 Package: com.michael.revealloader
 Name: RevealLoader
-Version: 0.2.2
+Version: 0.2.3
 Architecture: iphoneos-arm
-Description: Tool to load reveal into processes. Needs copy RevealServer.framework from Reveal to /Library/Frameworks first.
+Description: Tool to load reveal into processes.
 Maintainer: halo_michael <yc992147156@me.com>
 Author: halo_michael <yc992147156@me.com>
 Section: Tweaks
