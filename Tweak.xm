@@ -11,7 +11,8 @@
                 }
             }
             id exec = [[NSDictionary alloc] initWithContentsOfFile:@"/Library/Frameworks/RevealServer.framework/Info.plist"][@"CFBundleExecutable"];
-            if ([exec isKindOfClass:[NSString class]] && [[NSFileManager defaultManager] fileExistsAtPath:[@"/Library/Frameworks/RevealServer.framework/" stringByAppendingString:exec]]) {
+            BOOL isDir;
+            if ([exec isKindOfClass:[NSString class]] && [[NSFileManager defaultManager] fileExistsAtPath:[@"/Library/Frameworks/RevealServer.framework/" stringByAppendingString:exec] isDirectory:&isDir] && !isDir) {
                 [[NSBundle bundleWithPath:@"/Library/Frameworks/RevealServer.framework"] load];
             }
         }
